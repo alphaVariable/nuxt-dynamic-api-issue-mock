@@ -5,9 +5,14 @@ const route = useRoute();
 const slug = ref(String(route.params.slug));
 console.log(slug.value);
 const apicall = `https://swapi.dev/api/people/${slug.value}`;
-const { data: article } = await useFetch(
+
+const { data: article, refresh } = await useFetch(
   `https://swapi.dev/api/people/${slug.value}`
 );
+watchEffect(() => {
+  console.log(slug.value);
+  refresh();
+});
 </script>
 <template>
   <div>
